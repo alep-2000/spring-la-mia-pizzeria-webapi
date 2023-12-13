@@ -8,6 +8,7 @@ import org.hibernate.validator.constraints.URL;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -41,7 +42,7 @@ public class Pizza {
 	@PositiveOrZero(message = "Puoi inserire solamente un numero positivo o uguale a 0") 
 	private double prezzo;
 	
-	@OneToMany(mappedBy = "pizza")
+	@OneToMany(mappedBy = "pizza", cascade = CascadeType.REMOVE)
 	private List<OffertaSpeciale> offerteSpeciali;
 	
 	@ManyToMany
