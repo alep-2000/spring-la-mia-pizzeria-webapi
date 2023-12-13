@@ -12,7 +12,7 @@
 		th:action="@{'/pizzas/{id}/offerta/edit/'}"
 		method="POST"
 	>
-		 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+		
 		<select name="pizza_id">
 			<option
 				th:each="pizza : ${pizzas}"
