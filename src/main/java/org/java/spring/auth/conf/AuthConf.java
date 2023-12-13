@@ -21,6 +21,7 @@ public class AuthConf {
 	        .requestMatchers("/pizzas/delete/**").hasAuthority("ADMIN")
 	        .requestMatchers("/pizzas/ingredienti/create/**").hasAuthority("ADMIN")
 	        .requestMatchers("/pizzas/ingredienti/delete/{id}/**").hasAuthority("ADMIN")
+	        .requestMatchers("/api/p1.0/pizzas").permitAll()
 	        .requestMatchers("/**").hasAnyAuthority("USER", "ADMIN")
 	        .and().formLogin()
 	        .and().logout()
