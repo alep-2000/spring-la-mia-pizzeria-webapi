@@ -6,10 +6,12 @@
   // IMPORT COMPONENTS
   import PizzaIndex from './components/PizzaIndex.vue';
   import PizzaShow from './components/PizzaShow.vue';
+  import PizzaForm from './components/PizzaForm.vue';
 
   // DATA
   const pizzas = ref(null);
   const pizzaActive = ref(null);
+  const creatingPizza = ref(false);
 
   // FUNCTIONS
   const openPizza = (id) => {
@@ -23,7 +25,10 @@
   pizzaActive.value = null;
   if (update) updatePizzas();
 };
-
+const pizzaCreated = () => {
+  creatingPizza.value = false;
+  updatePizzas();
+};
   const updatePizzas = async () => {
     const data = await axios.get("http://localhost:8080/api/p1.0/pizzas");
     pizzas.value = data.data;
@@ -34,8 +39,18 @@
 </script>
 
 <template>
-  <h1>Pizze</h1>
-  <div>
+  <button 
+    v-if="!creatingPizza && pizzaActive == null"
+    @click="creatingPizza = true"
+  >
+    Crea nuova pizza
+  </button>
+  <pizza-form 
+    v-if="creatingPizza" 
+    @back="creatingPizza = false" 
+    @created="pizzaCreated"
+  />
+  <div v-else>
     <pizza-index 
       v-if="pizzaActive == null"
       :pizzas="pizzas" 

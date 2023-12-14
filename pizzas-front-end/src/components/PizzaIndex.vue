@@ -1,16 +1,15 @@
 <template lang="">
-    <div>
-        <ul>
-            <li 
-                class="list-elem"
-                v-for="pizza in pizzas" 
-                :key="pizza.id"
-                @click="$emit('openPizza', pizza.id)"
-            >
-                {{ pizza.nome }}
-            </li>
-        </ul>
-    </div>
+    <h1>Pizze:</h1>
+    <ul>
+        <li 
+            class="list-elem"
+            v-for="pizza in pizzas" 
+            :key="pizza.id"
+            @click="$emit('openPizza', pizza.id)"
+        >
+            {{ pizza.nome }}
+        </li>
+    </ul>
 </template>
 <script setup>
     // IMPORT LIBS
