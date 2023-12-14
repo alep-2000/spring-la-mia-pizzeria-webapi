@@ -1,14 +1,21 @@
 package org.java.spring.auth.conf;
 
+import org.apache.catalina.filters.CorsFilter;
 import org.java.spring.auth.service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+
 
 @Configuration
 public class AuthConf {
@@ -52,5 +59,6 @@ public class AuthConf {
    
     	return authProvider;
     }
-   
 }
+
+
