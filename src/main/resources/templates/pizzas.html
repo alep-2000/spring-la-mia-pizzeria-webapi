@@ -23,13 +23,25 @@
 					  	<button type="submit" class="btn btn-warning text-white" value="SEARCH">Cerca pizza</button>
 					  </div>
 					</form>		
-					<div>				
-						<a href="/pizzas/create">
+					<div
+						
+					>
+						<a href="/pizzas/ingredienti">
+							<button class="btn btn-success mb-3 me-2">
+								Lista Ingredienti
+							</button>									
+						</a>	
+						<a href="/pizzas/create" sec:authorize="hasAuthority('ADMIN')">
 							<button class="btn btn-success mb-3 me-2">
 								Crea Nuova Pizza
 							</button>									
 						</a>										
 					</div>		
+					<a href="/pizzas/offerta" sec:authorize="hasAuthority('ADMIN')">
+						<button class="btn btn-success mb-3 me-2">
+							Crea nuova offerta speciale
+						</button>									
+					</a>										
 				</div>
 			</div>
 		</div>
@@ -48,7 +60,7 @@
 			    <p class="card-text">[[*{descrizione}]]</p>
 			  </div>
 			  	<p class="text-center">[[*{prezzo}]]€</p>
-				<div class="d-flex justify-content-center mb-3">				
+				<div class="d-flex justify-content-center mb-3" sec:authorize="hasAuthority('ADMIN')">				
 					<a th:href="@{/pizzas/edit/{id} (id=*{id})}">
 						<button class="btn btn-primary">
 							Modifica la Pizza
@@ -58,7 +70,7 @@
 				<form 
 					style="display:inline-block"
 					th:action="@{/pizzas/delete/{id} (id=*{id})}"
-					method="POST">
+					method="POST" sec:authorize="hasAuthority('ADMIN')">
 					<div class="d-flex justify-content-center mb-3">
 						<button type="submit" class="btn btn-danger" value="DELETE">
 							Elimina la Pizza

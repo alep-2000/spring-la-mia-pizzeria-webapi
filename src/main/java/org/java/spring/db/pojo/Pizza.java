@@ -1,21 +1,26 @@
 package org.java.spring.db.pojo;
 
-
+import java.util.Arrays;
+import java.util.List;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.URL;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PositiveOrZero;
 
 @Entity
 public class Pizza {
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -37,13 +42,20 @@ public class Pizza {
 	@PositiveOrZero(message = "Puoi inserire solamente un numero positivo o uguale a 0") 
 	private double prezzo;
 	
+	@OneToMany(mappedBy = "pizza", cascade = CascadeType.REMOVE)
+	private List<OffertaSpeciale> offerteSpeciali;
+	
+	@ManyToMany
+	private List<Ingrediente> ingredienti;
+	
 	public Pizza() { }
-	public Pizza(String nome, String descrizione, String foto, double prezzo) {
+	public Pizza(String nome, String descrizione, String foto, double prezzo,Ingrediente... ingredienti) {
 		
 		setNome(nome);
 		setDescrizione(descrizione);
 		setFoto(foto);
 		setPrezzo(prezzo);
+		setIngredienti(ingredienti);
 	}
 	
 	public int getId() {
@@ -76,6 +88,26 @@ public class Pizza {
 	public void setPrezzo(double prezzo) {
 		this.prezzo = prezzo;
 	}
+		
+	public List<OffertaSpeciale> getOfferteSpeciali() {
+		return offerteSpeciali;
+	}
+	public void setOfferteSpeciali(List<OffertaSpeciale> offerteSpeciali) {
+		this.offerteSpeciali = offerteSpeciali;
+	}
+	
+	public List<Ingrediente> getIngredienti() {
+		return ingredienti;
+	}
+	public void setIngredienti(List<Ingrediente> ingredienti) {
+		this.ingredienti = ingredienti;
+	}
+	
+	@JsonIgnore
+	public void setIngredienti(Ingrediente... ingredienti) {	
+		setIngredienti(Arrays.asList(ingredienti));
+	}
+	
 	@Override
 	public String toString() {
 		
