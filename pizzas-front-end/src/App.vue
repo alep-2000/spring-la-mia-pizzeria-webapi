@@ -33,7 +33,10 @@ const pizzaCreated = () => {
     const data = await axios.get("http://localhost:8080/api/p1.0/pizzas");
     pizzas.value = data.data;
   };
-
+  const deletePizza = () => {
+  pizzaActive.value = null;
+  updatePizzas();
+};
   // HOOKS
   onMounted(updatePizzas);
 </script>
@@ -60,6 +63,7 @@ const pizzaCreated = () => {
         v-else
         :pizza="pizzaActive"
         @close-pizza="closePizza"
+        @delete-pizza="deletePizza"
       />
   </div>
 </template>
